@@ -513,8 +513,8 @@ prompt_line_sep() {
 
 build_prompt() {
   RETVAL=$?
-  prompt_time
   prompt_status
+  prompt_time
   prompt_context
   prompt_dir
   prompt_ruby
