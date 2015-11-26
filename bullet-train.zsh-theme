@@ -137,8 +137,14 @@ fi
 if [ ! -n "${BULLETTRAIN_GIT_BG+1}" ]; then
   BULLETTRAIN_GIT_BG=white
 fi
+if [ ! -n "${BULLETTRAIN_GIT_BG_DIRTY+1}" ]; then
+  BULLETTRAIN_GIT_BG_DIRTY=red
+fi
 if [ ! -n "${BULLETTRAIN_GIT_FG+1}" ]; then
   BULLETTRAIN_GIT_FG=black
+fi
+if [ ! -n "${BULLETTRAIN_GIT_FG_DIRTY+1}" ]; then
+  BULLETTRAIN_GIT_FG_DIRTY=black
 fi
 if [ ! -n "${BULLETTRAIN_GIT_EXTENDED+1}" ]; then
   BULLETTRAIN_GIT_EXTENDED=true
@@ -290,12 +296,22 @@ prompt_git() {
   repo_path=$(git rev-parse --git-dir 2>/dev/null)
 
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
-    prompt_segment $BULLETTRAIN_GIT_BG $BULLETTRAIN_GIT_FG
-
-    if [[ $BULLETTRAIN_GIT_EXTENDED == true ]]; then
-      echo -n $(git_prompt_info)$(git_prompt_status)
+    # this conditional is a bit hacky, but it gets the job done
+    dirty=$(parse_git_dirty)
+    if [[ $dirty = " ✔" ]]; then
+      prompt_segment $BULLETTRAIN_GIT_BG $BULLETTRAIN_GIT_FG
+      if [[ $BULLETTRAIN_GIT_EXTENDED == true ]]; then
+        echo -n $(git_prompt_info)$(git_prompt_status)
+      else
+        echo -n $(git_prompt_info)
+      fi
     else
-      echo -n $(git_prompt_info)
+      prompt_segment $BULLETTRAIN_GIT_BG_DIRTY $BULLETTRAIN_GIT_FG_DIRTY
+      if [[ $BULLETTRAIN_GIT_EXTENDED == true ]]; then
+        echo -n $(git_prompt_info)$(git_prompt_status)
+      else
+        echo -n $(git_prompt_info)
+      fi
     fi
   fi
 }
