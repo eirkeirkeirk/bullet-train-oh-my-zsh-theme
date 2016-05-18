@@ -188,26 +188,22 @@ else
   ZSH_THEME_GIT_PROMPT_CLEAN=$BULLETTRAIN_GIT_CLEAN
 fi
 if [ ! -n "${BULLETTRAIN_GIT_ADDED+1}" ]; then
-  # ZSH_THEME_GIT_PROMPT_ADDED=" %F{green}✚%F{black}"
-  ZSH_THEME_GIT_PROMPT_ADDED=" ✚"
+  ZSH_THEME_GIT_PROMPT_ADDED=" %F{green}✚%F{black}"
 else
   ZSH_THEME_GIT_PROMPT_ADDED=$BULLETTRAIN_GIT_ADDED
 fi
 if [ ! -n "${BULLETTRAIN_GIT_MODIFIED+1}" ]; then
-  # ZSH_THEME_GIT_PROMPT_MODIFIED=" %F{blue}✹%F{black}"
-  ZSH_THEME_GIT_PROMPT_MODIFIED=" ✹"
+  ZSH_THEME_GIT_PROMPT_MODIFIED=" %F{blue}✹%F{black}"
 else
   ZSH_THEME_GIT_PROMPT_MODIFIED=$BULLETTRAIN_GIT_MODIFIED
 fi
 if [ ! -n "${BULLETTRAIN_GIT_DELETED+1}" ]; then
-  # ZSH_THEME_GIT_PROMPT_DELETED=" %F{red}✖%F{black}"
-  ZSH_THEME_GIT_PROMPT_DELETED=" ✖"
+  ZSH_THEME_GIT_PROMPT_DELETED=" %F{red}✖%F{black}"
 else
   ZSH_THEME_GIT_PROMPT_DELETED=$BULLETTRAIN_GIT_DELETED
 fi
 if [ ! -n "${BULLETTRAIN_GIT_UNTRACKED+1}" ]; then
-  # ZSH_THEME_GIT_PROMPT_UNTRACKED=" %F{yellow}✭%F{black}"
-  ZSH_THEME_GIT_PROMPT_UNTRACKED=" ✭"
+  ZSH_THEME_GIT_PROMPT_UNTRACKED=" %F{yellow}✭%F{black}"
 else
   ZSH_THEME_GIT_PROMPT_UNTRACKED=$BULLETTRAIN_GIT_UNTRACKED
 fi
@@ -472,7 +468,7 @@ prompt_status() {
   symbols=()
   [[ $RETVAL -ne 0 && $BULLETTRAIN_STATUS_EXIT_SHOW != true ]] && symbols+="✘"
   [[ $RETVAL -ne 0 && $BULLETTRAIN_STATUS_EXIT_SHOW == true ]] && symbols+="✘ $RETVAL"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{black}%}⚡%f"
+  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡%f"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="⚙"
 
   if [[ -n "$symbols" && $RETVAL -ne 0 ]]; then
